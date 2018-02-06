@@ -8,7 +8,6 @@ import static javax.swing.JOptionPane.OK_OPTION;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author deng_875452
@@ -80,21 +79,21 @@ public class MainGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
-                .addComponent(button_Disable)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(label_CurrentStatus)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(297, Short.MAX_VALUE)
+                .addComponent(button_Disable)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(label_CurrentStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
                 .addComponent(button_Disable)
                 .addContainerGap())
         );
@@ -106,8 +105,7 @@ public class MainGUI extends javax.swing.JFrame {
         boolean passedTest = JOptionPane.showConfirmDialog(this, blockOverride1, "DoHomework Override", OK_CANCEL_OPTION) == OK_OPTION && blockOverride1.getText().equals(blockOverride1.getType());
         if (passedTest) {
             JOptionPane.showMessageDialog(this, "You did it!");
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "String was not typed correctly. DoHomework will continue to run.");
         }
     }//GEN-LAST:event_button_DisableActionPerformed
