@@ -68,7 +68,7 @@ public class CalendarFetcher {
     public static Credential authorize() throws IOException {
         // Load the secret boi
         InputStream in
-                = GoogleCalendar.class.getResourceAsStream("/client_secret.json");
+                = CalendarFetcher.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets
                 = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
