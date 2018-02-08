@@ -15,12 +15,23 @@ public class BlockOverride extends javax.swing.JPanel {
      */
     public BlockOverride() {
         initComponents();
+        textArea_text.setTransferHandler(null);
+        textArea_type.setTransferHandler(null);
         String text = "";
+        char toAdd;
         for (int i = 0; i < 256; i++) {
-            if (Math.random() >= .5)
-                text += (char) (Math.random() * 26 + 97);
-            else
-                text += (char) (Math.random() * 26 + 65);
+            if (Math.random() >= .5) {
+                toAdd = (char) (Math.random() * 26 + 97);
+                while (toAdd == 'l')
+                    toAdd = (char) (Math.random() * 26 + 97);
+                text += toAdd;
+            }
+            else {
+                toAdd = (char) (Math.random() * 26 + 65);
+                while (toAdd == 'I')
+                    toAdd = (char) (Math.random() * 26 + 65);
+                text += toAdd;
+            }
             if (i % 48 == 47)
                 text += "\n";
         }
