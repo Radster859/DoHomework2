@@ -31,6 +31,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         blockOverride1 = new BlockOverride();
+        statistics1 = new Statistics();
         button_Disable = new javax.swing.JButton();
         label_CurrentStatus = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -38,6 +39,17 @@ public class MainGUI extends javax.swing.JFrame {
         menuItem_Blocklists = new javax.swing.JMenuItem();
         menuItem_Settings = new javax.swing.JMenuItem();
         menuItem_Statistics = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout statistics1Layout = new javax.swing.GroupLayout(statistics1);
+        statistics1.setLayout(statistics1Layout);
+        statistics1Layout.setHorizontalGroup(
+            statistics1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 426, Short.MAX_VALUE)
+        );
+        statistics1Layout.setVerticalGroup(
+            statistics1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 412, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +127,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItem_SettingsActionPerformed
 
     private void menuItem_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_StatisticsActionPerformed
-        // TODO add your handling code here:
+        statistics1.setVisible(true);
     }//GEN-LAST:event_menuItem_StatisticsActionPerformed
 
     /**
@@ -163,5 +175,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItem_Blocklists;
     private javax.swing.JMenuItem menuItem_Settings;
     private javax.swing.JMenuItem menuItem_Statistics;
+    private Statistics statistics1;
     // End of variables declaration//GEN-END:variables
 }
