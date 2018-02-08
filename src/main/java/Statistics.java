@@ -84,6 +84,13 @@ public class Statistics extends javax.swing.JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
+        if (blockedAppMap.isEmpty()) {
+            return;
+        }
+        if (blockedSiteMap.isEmpty()) {
+            return;
+        }
+        
         int bufferLeft = 20;
         int bufferBottom = 20;
         int bufferSite = 300;
