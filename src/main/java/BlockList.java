@@ -1,8 +1,12 @@
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -18,8 +22,8 @@ import javax.swing.JOptionPane;
  */
 public class BlockList extends javax.swing.JPanel {
 
-    ArrayList<String> blockedSites;
-    
+    private ArrayList<String> blockedSites;
+    private ArrayList<String> blockedApps;
     
     /**
      * Creates new form BlockList
@@ -131,12 +135,34 @@ public class BlockList extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_ImportSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ImportSitesActionPerformed
+        JFileChooser jfc = new JFileChooser();
         
+        JOptionPane.showMessageDialog(this, "Files must have each blocked site on a new line");
+        
+        if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File file = jfc.getSelectedFile();
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    String site = sc.nextLine();
+                    if (site.matches("\\S+")) {
+                        blockedSites.add(site);
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(BlockList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        updateLists();
     }//GEN-LAST:event_button_ImportSitesActionPerformed
 
     private void button_ExportSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ExportSitesActionPerformed
         
         String data = "";
+        
+        for (String site : blockedSites) {
+            data += site + "\n";
+        }
         
         try {
             JFileChooser jfc = new JFileChooser();
@@ -155,12 +181,33 @@ public class BlockList extends javax.swing.JPanel {
     }//GEN-LAST:event_button_ExportSitesActionPerformed
 
     private void button_ImportAppsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ImportAppsActionPerformed
-        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser();
+        
+        JOptionPane.showMessageDialog(this, "Files must have each blocked app on a new line");
+        
+        if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File file = jfc.getSelectedFile();
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine()) {
+                    String app = sc.nextLine();
+                    if (app.matches("\\S+")) {
+                        blockedApps.add(app);
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(BlockList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        updateLists();
     }//GEN-LAST:event_button_ImportAppsActionPerformed
 
     private void button_ExportAppsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ExportAppsActionPerformed
         String data = "";
         
+        for (String app : blockedApps) {
+            data += app + "\n";
+        }
         
         try {
             JFileChooser jfc = new JFileChooser();
@@ -178,6 +225,18 @@ public class BlockList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_button_ExportAppsActionPerformed
 
+    public void updateLists() {
+        list_Apps.setListData(blockedApps.toArray());
+        list_Sites.setListData(blockedSites.toArray());
+    }
+    
+    public ArrayList<String> getBlockedApps() {
+        return blockedApps;
+    }
+    
+    public ArrayList<String> getBlockedSites() {
+        return blockedSites;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_ExportApps;
