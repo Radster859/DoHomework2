@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 /**
  *
  * @author radloff_859936
@@ -21,8 +23,24 @@ public class LogoPanel extends javax.swing.JPanel {
 
     public LogoPanel() {
         try {
-            image = ImageIO.read(new File("DHIcon.png"));
+            image = ImageIO.read(new File("DHIconOr.png"));
         } catch (IOException ex) {
+        }
+    }
+
+    public void setColor(String color) {
+        try {
+            switch (color) {
+                case "Red":
+                    image = ImageIO.read(new File("DHIconRe.png"));
+                    break;
+                case "Orange":
+                    image = ImageIO.read(new File("DHIconOr.png"));
+                    break;
+            }
+            repaint();
+        } catch (IOException ex) {
+            Logger.getLogger(LogoPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
