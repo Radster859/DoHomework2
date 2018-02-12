@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -140,7 +141,7 @@ public class BlockList extends javax.swing.JPanel {
         try {
             JFileChooser jfc = new JFileChooser();
         
-            if (jfc.showSaveDialog(menu_File) == JFileChooser.APPROVE_OPTION) {
+            if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jfc.getSelectedFile();
                 FileWriter writer = new FileWriter(file);
                 writer.write(data);
@@ -164,7 +165,7 @@ public class BlockList extends javax.swing.JPanel {
         try {
             JFileChooser jfc = new JFileChooser();
         
-            if (jfc.showSaveDialog(menu_File) == JFileChooser.APPROVE_OPTION) {
+            if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = jfc.getSelectedFile();
                 FileWriter writer = new FileWriter(file);
                 writer.write(data);
