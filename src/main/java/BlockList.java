@@ -59,7 +59,10 @@ public class BlockList extends javax.swing.JPanel {
         button_ImportApps = new javax.swing.JButton();
         button_ExportSites = new javax.swing.JButton();
         button_ExportApps = new javax.swing.JButton();
-        button_updateLists = new javax.swing.JButton();
+        button_AddApp = new javax.swing.JButton();
+        button_DeleteApp = new javax.swing.JButton();
+        button_AddSite = new javax.swing.JButton();
+        button_DeleteSite = new javax.swing.JButton();
 
         label_blockedSites.setText("Blocked Sites");
 
@@ -97,10 +100,31 @@ public class BlockList extends javax.swing.JPanel {
             }
         });
 
-        button_updateLists.setText("Update Lists");
-        button_updateLists.addActionListener(new java.awt.event.ActionListener() {
+        button_AddApp.setText("Add App");
+        button_AddApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_updateListsActionPerformed(evt);
+                button_AddAppActionPerformed(evt);
+            }
+        });
+
+        button_DeleteApp.setText("Delete App");
+        button_DeleteApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_DeleteAppActionPerformed(evt);
+            }
+        });
+
+        button_AddSite.setText("Add Site");
+        button_AddSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_AddSiteActionPerformed(evt);
+            }
+        });
+
+        button_DeleteSite.setText("Delete Site");
+        button_DeleteSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_DeleteSiteActionPerformed(evt);
             }
         });
 
@@ -110,24 +134,31 @@ public class BlockList extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_updateLists, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(label_blockedSites)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(button_ImportSites)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(button_ExportSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label_blockedSites)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(button_ImportSites)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button_ExportSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label_blockedApps)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(button_ImportApps)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button_ExportApps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(button_AddSite, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button_DeleteSite, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(label_blockedApps)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(button_ImportApps)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(button_ExportApps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(button_AddApp, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button_DeleteApp, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -149,9 +180,15 @@ public class BlockList extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(button_ImportApps)
                         .addComponent(button_ExportApps)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_updateLists)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(button_AddApp)
+                        .addComponent(button_DeleteApp))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(button_AddSite)
+                        .addComponent(button_DeleteSite)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -246,9 +283,21 @@ public class BlockList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_button_ExportAppsActionPerformed
 
-    private void button_updateListsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_updateListsActionPerformed
-        ListModel appModel = list_Apps.getModel();
-    }//GEN-LAST:event_button_updateListsActionPerformed
+    private void button_AddAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AddAppActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_AddAppActionPerformed
+
+    private void button_DeleteAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteAppActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_DeleteAppActionPerformed
+
+    private void button_AddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AddSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_AddSiteActionPerformed
+
+    private void button_DeleteSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_DeleteSiteActionPerformed
 
     public void updateLists() {
         list_Apps.setListData(blockedApps.toArray());
@@ -275,11 +324,14 @@ public class BlockList extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_AddApp;
+    private javax.swing.JButton button_AddSite;
+    private javax.swing.JButton button_DeleteApp;
+    private javax.swing.JButton button_DeleteSite;
     private javax.swing.JButton button_ExportApps;
     private javax.swing.JButton button_ExportSites;
     private javax.swing.JButton button_ImportApps;
     private javax.swing.JButton button_ImportSites;
-    private javax.swing.JButton button_updateLists;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_blockedApps;
