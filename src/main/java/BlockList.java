@@ -197,7 +197,7 @@ public class BlockList extends javax.swing.JPanel {
         
         JOptionPane.showMessageDialog(this, "Files must have each blocked site on a new line");
         
-        if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 File file = jfc.getSelectedFile();
                 Scanner sc = new Scanner(file);
@@ -230,7 +230,6 @@ public class BlockList extends javax.swing.JPanel {
                 FileWriter writer = new FileWriter(file);
                 writer.write(data);
                 writer.close();
-
                 JOptionPane.showMessageDialog(this, "Sites List export was successful");
             }
         } catch (IOException ex) {
@@ -243,7 +242,7 @@ public class BlockList extends javax.swing.JPanel {
         
         JOptionPane.showMessageDialog(this, "Files must have each blocked app on a new line");
         
-        if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 File file = jfc.getSelectedFile();
                 Scanner sc = new Scanner(file);

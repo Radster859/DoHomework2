@@ -1,4 +1,7 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,8 +18,16 @@ import static javax.swing.JOptionPane.OK_OPTION;
  * @author deng_875452
  */
 public class MainGUI extends javax.swing.JFrame {
-    private String flag;
-    private String color = "Red";
+
+    private static String flag;
+    private static String color = "Red";
+    private static boolean override = false;
+    private static CalendarFetcher calendar = new CalendarFetcher();
+    private static regBlocker appBlock = new regBlocker();
+    private static BlockWebsite webBlock = new BlockWebsite();
+    private static ArrayList<String> whitelist;
+    private static ArrayList<String> blacklist;
+
     /**
      * Creates new form TestBlockOverride
      */
@@ -143,6 +154,7 @@ public class MainGUI extends javax.swing.JFrame {
         boolean passedTest = JOptionPane.showConfirmDialog(this, blockOverride1, "DoHomework Override", OK_CANCEL_OPTION) == OK_OPTION && blockOverride1.getText().equals(blockOverride1.getType());
         if (passedTest) {
             JOptionPane.showMessageDialog(this, "You did it!");
+            override = true;
         } else {
             JOptionPane.showMessageDialog(this, "String was not typed correctly. DoHomework will continue to run.");
         }
@@ -151,8 +163,9 @@ public class MainGUI extends javax.swing.JFrame {
     private void menuItem_SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_SettingsActionPerformed
         settings1.setColor(color);
         settings1.setFlag(flag);
-        if(JOptionPane.showConfirmDialog(this, settings1, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, settings1, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == OK_OPTION) {
             flag = settings1.getFlag();
+            calendar.setFlag(flag);
             color = settings1.getColor();
             logoPanel1.setColor(color);
         }
@@ -196,11 +209,32 @@ public class MainGUI extends javax.swing.JFrame {
                 new MainGUI().setVisible(true);
             }
         });
-        while (1==1){
-            System.out.println("running boi");
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                FileWriter writer;
+                try {
+                    writer = new FileWriter("save.sve");
+                    writer.write(flag + "\n" + color + "\n" + appBlock + "\n" + webBlock + "\n" + whitelist + "\n" + blacklist);
+                    writer.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        while (1 == 1) {
             try {
-                Thread.sleep(2000000);
-            } catch (InterruptedException ex) {
+                if (override) {
+                    webBlock.unBlockAll();
+                    appBlock.Off();
+                    break;
+                }
+                if (calendar.isWork()) {
+                    appBlock.On();
+                    webBlock.blockAllBut(whitelist);
+                }
+                webBlock.blockURLs(blacklist);
+            } catch (IOException ex) {
                 Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
