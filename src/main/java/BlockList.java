@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,11 +26,18 @@ public class BlockList extends javax.swing.JPanel {
     private ArrayList<String> blockedSites;
     private ArrayList<String> blockedApps;
     
+    private ArrayList<String> actualBlockedSites;
+    private ArrayList<String> actualBlockedApps;
+    
     /**
      * Creates new form BlockList
      */
     public BlockList() {
         initComponents();
+        blockedSites = new ArrayList<String>();
+        blockedApps = new ArrayList<String>();
+        actualBlockedSites = new ArrayList<String>();
+        actualBlockedApps = new ArrayList<String>();
     }
 
     /**
@@ -51,6 +59,7 @@ public class BlockList extends javax.swing.JPanel {
         button_ImportApps = new javax.swing.JButton();
         button_ExportSites = new javax.swing.JButton();
         button_ExportApps = new javax.swing.JButton();
+        button_updateLists = new javax.swing.JButton();
 
         label_blockedSites.setText("Blocked Sites");
 
@@ -88,27 +97,37 @@ public class BlockList extends javax.swing.JPanel {
             }
         });
 
+        button_updateLists.setText("Update Lists");
+        button_updateLists.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_updateListsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_blockedSites)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button_updateLists, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(button_ImportSites)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button_ExportSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_blockedApps)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(button_ImportApps)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button_ExportApps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_blockedSites)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(button_ImportSites)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(button_ExportSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_blockedApps)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(button_ImportApps)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(button_ExportApps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -130,6 +149,8 @@ public class BlockList extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(button_ImportApps)
                         .addComponent(button_ExportApps)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(button_updateLists)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -225,17 +246,32 @@ public class BlockList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_button_ExportAppsActionPerformed
 
+    private void button_updateListsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_updateListsActionPerformed
+        ListModel appModel = list_Apps.getModel();
+    }//GEN-LAST:event_button_updateListsActionPerformed
+
     public void updateLists() {
         list_Apps.setListData(blockedApps.toArray());
         list_Sites.setListData(blockedSites.toArray());
     }
     
+    public void saveChanges() {
+        actualBlockedApps = (ArrayList<String>) blockedApps.clone();
+        actualBlockedSites = (ArrayList<String>) blockedSites.clone();
+    }
+    
+    public void discardChanges() {
+        blockedApps = (ArrayList<String>) actualBlockedApps.clone();
+        blockedSites = (ArrayList<String>) actualBlockedSites.clone();
+        updateLists();
+    }
+    
     public ArrayList<String> getBlockedApps() {
-        return blockedApps;
+        return actualBlockedApps;
     }
     
     public ArrayList<String> getBlockedSites() {
-        return blockedSites;
+        return actualBlockedSites;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,6 +279,7 @@ public class BlockList extends javax.swing.JPanel {
     private javax.swing.JButton button_ExportSites;
     private javax.swing.JButton button_ImportApps;
     private javax.swing.JButton button_ImportSites;
+    private javax.swing.JButton button_updateLists;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_blockedApps;
