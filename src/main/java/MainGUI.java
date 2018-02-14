@@ -1,4 +1,6 @@
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.OK_OPTION;
@@ -194,6 +196,14 @@ public class MainGUI extends javax.swing.JFrame {
                 new MainGUI().setVisible(true);
             }
         });
+        while (1==1){
+            System.out.println("running boi");
+            try {
+                Thread.sleep(2000000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
