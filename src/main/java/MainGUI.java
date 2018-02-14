@@ -22,9 +22,9 @@ public class MainGUI extends javax.swing.JFrame {
     private static String flag;
     private static String color = "Red";
     private static boolean override = false;
-    private static CalendarFetcher calendar = new CalendarFetcher();
-    private static regBlocker appBlock = new regBlocker();
-    private static BlockWebsite webBlock = new BlockWebsite();
+    //private static CalendarFetcher calendar;
+    private static regBlocker appBlock;
+    private static BlockWebsite webBlock;
     private static ArrayList<String> whitelist;
     private static ArrayList<String> blacklist;
 
@@ -34,6 +34,9 @@ public class MainGUI extends javax.swing.JFrame {
     public MainGUI() {
         initComponents();
         flag = "";
+        //calendar = new CalendarFetcher();
+        appBlock = new regBlocker();
+        webBlock = new BlockWebsite();
     }
 
     /**
@@ -165,7 +168,7 @@ public class MainGUI extends javax.swing.JFrame {
         settings1.setFlag(flag);
         if (JOptionPane.showConfirmDialog(this, settings1, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == OK_OPTION) {
             flag = settings1.getFlag();
-            calendar.setFlag(flag);
+            //calendar.setFlag(flag);
             color = settings1.getColor();
             logoPanel1.setColor(color);
         }
@@ -229,11 +232,12 @@ public class MainGUI extends javax.swing.JFrame {
                     appBlock.Off();
                     break;
                 }
-                if (calendar.isWork()) {
+                /*if (calendar.isWork()) {
                     appBlock.On();
                     webBlock.blockAllBut(whitelist);
+                        webBlock.blockURLs(blacklist);
                 }
-                webBlock.blockURLs(blacklist);
+                */
             } catch (IOException ex) {
                 Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
