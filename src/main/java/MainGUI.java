@@ -13,12 +13,14 @@ import static javax.swing.JOptionPane.OK_OPTION;
  * @author deng_875452
  */
 public class MainGUI extends javax.swing.JFrame {
-
+    private String flag;
+    private String color = "Red";
     /**
      * Creates new form TestBlockOverride
      */
     public MainGUI() {
         initComponents();
+        flag = "";
     }
 
     /**
@@ -32,6 +34,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         blockOverride1 = new BlockOverride();
         statistics1 = new Statistics();
+        settings1 = new Settings();
         button_Disable = new javax.swing.JButton();
         label_CurrentStatus = new javax.swing.JLabel();
         logoPanel1 = new LogoPanel();
@@ -144,11 +147,17 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_button_DisableActionPerformed
 
     private void menuItem_SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_SettingsActionPerformed
-        // TODO add your handling code here:
+        settings1.setColor(color);
+        settings1.setFlag(flag);
+        if(JOptionPane.showConfirmDialog(this, settings1, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == OK_OPTION) {
+            flag = settings1.getFlag();
+            color = settings1.getColor();
+            logoPanel1.setColor(color);
+        }
     }//GEN-LAST:event_menuItem_SettingsActionPerformed
 
     private void menuItem_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_StatisticsActionPerformed
-        statistics1.setVisible(true);
+        JOptionPane.showConfirmDialog(this, statistics1, "Statistics", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuItem_StatisticsActionPerformed
 
     /**
@@ -197,6 +206,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItem_Blocklists;
     private javax.swing.JMenuItem menuItem_Settings;
     private javax.swing.JMenuItem menuItem_Statistics;
+    private Settings settings1;
     private Statistics statistics1;
     // End of variables declaration//GEN-END:variables
 }

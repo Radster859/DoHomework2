@@ -19,6 +19,8 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="Settings" name="settings1">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
