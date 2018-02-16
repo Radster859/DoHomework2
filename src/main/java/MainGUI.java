@@ -1,7 +1,14 @@
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,7 +27,7 @@ import static javax.swing.JOptionPane.OK_OPTION;
 public class MainGUI extends javax.swing.JFrame {
 
     private static String flag;
-    private static String color = "Red";
+    private static String color;
     private static boolean override = false;
     //private static CalendarFetcher calendar;
     private static regBlocker appBlock;
@@ -33,10 +40,24 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() {
         initComponents();
-        flag = "";
-        //calendar = new CalendarFetcher();
-        appBlock = new regBlocker();
-        webBlock = new BlockWebsite();
+        try {
+            FileInputStream fis = new FileInputStream("save.sve");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            //flag + "\n" + color + "\n" + appBlock + "\n" + webBlock + "\n" + whitelist + "\n" + blacklist);
+            flag = "" + ois.readObject();
+            color = "" + ois.readObject();
+            appBlock = (regBlocker) ois.readObject();
+            webBlock = (BlockWebsite) ois.readObject();
+            whitelist = (ArrayList) ois.readObject();
+            blacklist = (ArrayList) ois.readObject();
+            fis.close();
+            ois.close();
+            logoPanel1.setColor(color);
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
@@ -179,10 +200,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void menuItem_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_StatisticsActionPerformed
         JOptionPane.showConfirmDialog(this, statistics1, "Statistics", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuItem_StatisticsActionPerformed
-    
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -220,32 +238,36 @@ public class MainGUI extends javax.swing.JFrame {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                FileWriter writer;
+
                 try {
-                    writer = new FileWriter("save.sve");
-                    writer.write(flag + "\n" + color + "\n" + appBlock + "\n" + webBlock + "\n" + whitelist + "\n" + blacklist);
-                    writer.close();
+                    FileOutputStream fos = new FileOutputStream(new File("save.sve"));
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(flag);
+                    oos.writeObject(color);
+                    oos.writeObject(appBlock);
+                    oos.writeObject(webBlock);
+                    oos.writeObject(whitelist);
+                    oos.writeObject(blacklist);
+                    fos.close();
+                    oos.close();
                 } catch (IOException ex) {
                     Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
-        while (1 == 1) {
-            try {
-                if (override) {
-                    webBlock.unBlockAll();
-                    appBlock.Off();
-                    break;
-                }
-                /*if (calendar.isWork()) {
-                    appBlock.On();
+        try {
+            while (1 == 1) {
+                if (!(override/* || calendar.isWork()*/)) {
+
                     webBlock.blockAllBut(whitelist);
-                        webBlock.blockURLs(blacklist);
+                    webBlock.blockURLs(blacklist);
+                } else {
+                    appBlock.Off();
+                    webBlock.unBlockAll();
                 }
-                */
-            } catch (IOException ex) {
-                Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
