@@ -51,6 +51,8 @@ public class MainGUI extends javax.swing.JFrame {
         blockOverride1 = new BlockOverride();
         statistics1 = new Statistics();
         settings1 = new Settings();
+        addApp1 = new AddApp();
+        addSite1 = new AddSite();
         button_Disable = new javax.swing.JButton();
         label_CurrentStatus = new javax.swing.JLabel();
         logoPanel1 = new LogoPanel();
@@ -177,7 +179,10 @@ public class MainGUI extends javax.swing.JFrame {
     private void menuItem_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_StatisticsActionPerformed
         JOptionPane.showConfirmDialog(this, statistics1, "Statistics", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuItem_StatisticsActionPerformed
-
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -245,6 +250,8 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private AddApp addApp1;
+    private AddSite addSite1;
     private BlockOverride blockOverride1;
     private javax.swing.JButton button_Disable;
     private javax.swing.JMenu jMenu1;
