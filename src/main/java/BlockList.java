@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -21,7 +22,7 @@ import javax.swing.ListModel;
  *
  * @author deng_875452
  */
-public class BlockList extends javax.swing.JPanel {
+public class BlockList extends javax.swing.JPanel implements Serializable {
 
     private ArrayList<String> blockedSites;
     private ArrayList<String> blockedApps;
@@ -289,14 +290,8 @@ public class BlockList extends javax.swing.JPanel {
     }//GEN-LAST:event_button_AddAppActionPerformed
 
     private void button_DeleteAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteAppActionPerformed
-        int[] rows = list_Apps.getSelectedIndices();
-        int nextDeleteIndex = rows.length - 1;
-        for (int i = blockedApps.size() - 1; i >= 0; i--) {
-            if (i == rows[nextDeleteIndex]) {
-                blockedApps.remove(i);
-                nextDeleteIndex--;
-            }
-        }
+        int row = list_Apps.getSelectedIndex();
+        blockedApps.remove(row);
         
         updateLists();
     }//GEN-LAST:event_button_DeleteAppActionPerformed
@@ -308,14 +303,8 @@ public class BlockList extends javax.swing.JPanel {
     }//GEN-LAST:event_button_AddSiteActionPerformed
 
     private void button_DeleteSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteSiteActionPerformed
-        int[] rows = list_Sites.getSelectedIndices();
-        int nextDeleteIndex = rows.length - 1;
-        for (int i = blockedSites.size() - 1; i >= 0; i--) {
-            if (i == rows[nextDeleteIndex]) {
-                blockedSites.remove(i);
-                nextDeleteIndex--;
-            }
-        }
+        int row = list_Sites.getSelectedIndex();
+        blockedSites.remove(row);
         
         updateLists();
     }//GEN-LAST:event_button_DeleteSiteActionPerformed

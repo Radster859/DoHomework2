@@ -74,6 +74,7 @@ public class MainGUI extends javax.swing.JFrame {
         settings1 = new Settings();
         addApp1 = new AddApp();
         addSite1 = new AddSite();
+        blockList1 = new BlockList();
         button_Disable = new javax.swing.JButton();
         label_CurrentStatus = new javax.swing.JLabel();
         logoPanel1 = new LogoPanel();
@@ -123,6 +124,11 @@ public class MainGUI extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         menuItem_Blocklists.setText("Blocklists");
+        menuItem_Blocklists.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem_BlocklistsActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuItem_Blocklists);
 
         menuItem_Settings.setText("Settings");
@@ -201,6 +207,15 @@ public class MainGUI extends javax.swing.JFrame {
         JOptionPane.showConfirmDialog(this, statistics1, "Statistics", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuItem_StatisticsActionPerformed
 
+    private void menuItem_BlocklistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_BlocklistsActionPerformed
+        if (JOptionPane.showConfirmDialog(this, blockList1, "Blocklist", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            blockList1.saveChanges();
+        }
+        else {
+            blockList1.discardChanges();
+        }
+    }//GEN-LAST:event_menuItem_BlocklistsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,6 +289,7 @@ public class MainGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private AddApp addApp1;
     private AddSite addSite1;
+    private BlockList blockList1;
     private BlockOverride blockOverride1;
     private javax.swing.JButton button_Disable;
     private javax.swing.JMenu jMenu1;
