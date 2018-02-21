@@ -283,19 +283,41 @@ public class BlockList extends javax.swing.JPanel {
     }//GEN-LAST:event_button_ExportAppsActionPerformed
 
     private void button_AddAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AddAppActionPerformed
-        // TODO add your handling code here:
+        String appName = JOptionPane.showInputDialog(this, "Enter the name of the app");
+        blockedApps.add(appName);
+        updateLists();
     }//GEN-LAST:event_button_AddAppActionPerformed
 
     private void button_DeleteAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteAppActionPerformed
-        // TODO add your handling code here:
+        int[] rows = list_Apps.getSelectedIndices();
+        int nextDeleteIndex = rows.length - 1;
+        for (int i = blockedApps.size() - 1; i >= 0; i--) {
+            if (i == rows[nextDeleteIndex]) {
+                blockedApps.remove(i);
+                nextDeleteIndex--;
+            }
+        }
+        
+        updateLists();
     }//GEN-LAST:event_button_DeleteAppActionPerformed
 
     private void button_AddSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_AddSiteActionPerformed
-        // TODO add your handling code here:
+        String url = JOptionPane.showInputDialog(this, "Enter the url of the site");
+        blockedSites.add(url);
+        updateLists();
     }//GEN-LAST:event_button_AddSiteActionPerformed
 
     private void button_DeleteSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DeleteSiteActionPerformed
-        // TODO add your handling code here:
+        int[] rows = list_Sites.getSelectedIndices();
+        int nextDeleteIndex = rows.length - 1;
+        for (int i = blockedSites.size() - 1; i >= 0; i--) {
+            if (i == rows[nextDeleteIndex]) {
+                blockedSites.remove(i);
+                nextDeleteIndex--;
+            }
+        }
+        
+        updateLists();
     }//GEN-LAST:event_button_DeleteSiteActionPerformed
 
     public void updateLists() {
