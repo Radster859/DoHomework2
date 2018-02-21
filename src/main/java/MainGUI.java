@@ -50,6 +50,9 @@ public class MainGUI extends javax.swing.JFrame {
             webBlock = (BlockWebsite) ois.readObject();
             whitelist = (ArrayList) ois.readObject();
             blacklist = (ArrayList) ois.readObject();
+            blockList1.setActualBlockedApps((ArrayList) ois.readObject());
+            blockList1.setActualBlockedSites((ArrayList) ois.readObject());
+            
             fis.close();
             ois.close();
             logoPanel1.setColor(color);
@@ -263,6 +266,8 @@ public class MainGUI extends javax.swing.JFrame {
                     oos.writeObject(webBlock);
                     oos.writeObject(whitelist);
                     oos.writeObject(blacklist);
+                    oos.writeObject(blockList1.getActualBlockedApps());
+                    oos.writeObject(blockList1.getActualBlockedSites());
                     fos.close();
                     oos.close();
                 } catch (IOException ex) {

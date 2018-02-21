@@ -22,7 +22,7 @@ import javax.swing.ListModel;
  *
  * @author deng_875452
  */
-public class BlockList extends javax.swing.JPanel implements Serializable {
+public class BlockList extends javax.swing.JPanel {
 
     private ArrayList<String> blockedSites;
     private ArrayList<String> blockedApps;
@@ -324,12 +324,22 @@ public class BlockList extends javax.swing.JPanel implements Serializable {
         blockedSites = (ArrayList<String>) actualBlockedSites.clone();
         updateLists();
     }
+
+    public void setActualBlockedSites(ArrayList<String> actualBlockedSites) {
+        this.actualBlockedSites = actualBlockedSites;
+    }
+
+    public void setActualBlockedApps(ArrayList<String> actualBlockedApps) {
+        this.actualBlockedApps = actualBlockedApps;
+    }
     
-    public ArrayList<String> getBlockedApps() {
+    
+    
+    public ArrayList<String> getActualBlockedApps() {
         return actualBlockedApps;
     }
     
-    public ArrayList<String> getBlockedSites() {
+    public ArrayList<String> getActualBlockedSites() {
         return actualBlockedSites;
     }
 
