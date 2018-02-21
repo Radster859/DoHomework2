@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -21,9 +20,9 @@ public class regBlocker {
     public regBlocker() {
         programs = new ArrayList<String>();
         try {
-        Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer");
-        Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer /v DisallowRun /t REG_DWORD /d 1");
-        Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer/DisallowRun");
+            Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer");
+            Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer /v DisallowRun /t REG_DWORD /d 1");
+            Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer/DisallowRun");
         } catch (IOException ex) {
             Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
         }
