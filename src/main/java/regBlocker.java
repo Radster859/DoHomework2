@@ -65,8 +65,4 @@ public class regBlocker {
             Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addList(ArrayList<String> s) {
-        programs = s;
-    }
 }

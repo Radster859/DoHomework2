@@ -34,6 +34,8 @@ public class MainGUI extends javax.swing.JFrame {
     private static BlockWebsite webBlock;
     private static ArrayList<String> blockedApps;
     private static ArrayList<String> blockedSites;
+    private static ArrayList<String> whitelist;
+    private static ArrayList<String> blacklist;
 
     /**
      * Creates new form TestBlockOverride
@@ -46,14 +48,15 @@ public class MainGUI extends javax.swing.JFrame {
             //flag + "\n" + color + "\n" + appBlock + "\n" + webBlock + "\n" + whitelist + "\n" + blacklist);
             flag = "" + ois.readObject();
             color = "" + ois.readObject();
+            appBlock = (regBlocker) ois.readObject();
+            webBlock = (BlockWebsite) ois.readObject();
+            whitelist = (ArrayList) ois.readObject();
+            blacklist = (ArrayList) ois.readObject();
             blockedApps = (ArrayList) ois.readObject();
             blockedSites = (ArrayList) ois.readObject();
             blockList1.setActualBlockedApps(blockedApps);
             blockList1.setActualBlockedSites(blockedSites);
-            //blockList1.discardChanges();
-            appBlock = new regBlocker();
-            webBlock = new BlockWebsite();
-            appBlock.addList(blockedApps);
+            blockList1.discardChanges();
             fis.close();
             ois.close();
             logoPanel1.setColor(color);
@@ -239,7 +242,9 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        appBlock.On();
+        for (String s : blockedApps) {
+                        appBlock.addProgram(s);
+                    }
         override = false;
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -287,6 +292,10 @@ public class MainGUI extends javax.swing.JFrame {
                     ObjectOutputStream oos = new ObjectOutputStream(fos);
                     oos.writeObject(flag);
                     oos.writeObject(color);
+                    oos.writeObject(appBlock);
+                    oos.writeObject(webBlock);
+                    oos.writeObject(whitelist);
+                    oos.writeObject(blacklist);
                     oos.writeObject(blockedApps);
                     oos.writeObject(blockedSites);
                     fos.close();
@@ -298,14 +307,15 @@ public class MainGUI extends javax.swing.JFrame {
         });
         try {
             while (1 == 1) {
-                if(!override && calendar.isWork()) {
-                    //webBlock.blockURLs(blockedSites);
+                if (!(override && calendar.isWork())) {
+                    appBlock.On();
+                    webBlock.blockURLs(blockedSites);
                 } else {
-                    //appBlock.Off();
-                    //webBlock.unBlockAll();
+                    appBlock.Off();
+                    webBlock.unBlockAll();
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
