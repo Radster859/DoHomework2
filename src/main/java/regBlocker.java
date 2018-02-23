@@ -33,6 +33,12 @@ public class regBlocker {
         for (String s : programs) {
             addProgram(s);
         }
+        try {
+            Runtime.getRuntime().exec("taskkill /im explorer.exe /f");
+            Runtime.getRuntime().exec("explorer");
+        } catch (IOException ex) {
+            Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void Off() {
@@ -45,12 +51,9 @@ public class regBlocker {
         }
     }
 
-    public void addProgram(String tname) {
+    private void addProgram(String tname) {
         try {
             Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer/DisallowRun /v " + tname + " /t REG_SZ /d " + tname);
-            Runtime.getRuntime().exec("taskkill /im explorer.exe /f");
-            Runtime.getRuntime().exec("explorer");
-            programs.add(tname);
         } catch (IOException ex) {
             Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
         }
