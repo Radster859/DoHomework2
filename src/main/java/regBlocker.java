@@ -39,7 +39,7 @@ public class regBlocker {
         try {
             Runtime.getRuntime().exec("REG DELETE HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer/DisallowRun /va /f");
             Runtime.getRuntime().exec("taskkill /im explorer.exe /f");
-            Runtime.getRuntime().exec("start explorer.exe");
+            Runtime.getRuntime().exec("explorer");
         } catch (IOException ex) {
             Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,7 +49,7 @@ public class regBlocker {
         try {
             Runtime.getRuntime().exec("REG ADD HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Policies/Explorer/DisallowRun /v " + tname + " /t REG_SZ /d " + tname);
             Runtime.getRuntime().exec("taskkill /im explorer.exe /f");
-            Runtime.getRuntime().exec("start explorer.exe");
+            Runtime.getRuntime().exec("explorer");
             programs.add(tname);
         } catch (IOException ex) {
             Logger.getLogger(regBlocker.class.getName()).log(Level.SEVERE, null, ex);
