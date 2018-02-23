@@ -32,6 +32,8 @@ public class MainGUI extends javax.swing.JFrame {
     //private static CalendarFetcher calendar;
     private static regBlocker appBlock;
     private static BlockWebsite webBlock;
+    private static ArrayList<String> blockedApps;
+    private static ArrayList<String> blockedSites;
     private static ArrayList<String> whitelist;
     private static ArrayList<String> blacklist;
 
@@ -50,9 +52,11 @@ public class MainGUI extends javax.swing.JFrame {
             webBlock = (BlockWebsite) ois.readObject();
             whitelist = (ArrayList) ois.readObject();
             blacklist = (ArrayList) ois.readObject();
-            blockList1.setActualBlockedApps((ArrayList) ois.readObject());
-            blockList1.setActualBlockedSites((ArrayList) ois.readObject());
-            
+            blockedApps = (ArrayList) ois.readObject();
+            blockedSites = (ArrayList) ois.readObject();
+            blockList1.setActualBlockedApps(blockedApps);
+            blockList1.setActualBlockedSites(blockedSites);
+            blockList1.discardChanges();
             fis.close();
             ois.close();
             logoPanel1.setColor(color);
@@ -217,6 +221,8 @@ public class MainGUI extends javax.swing.JFrame {
         else {
             blockList1.discardChanges();
         }
+        blockedApps = blockList1.getActualBlockedApps();
+        blockedSites = blockList1.getActualBlockedSites();
     }//GEN-LAST:event_menuItem_BlocklistsActionPerformed
 
     /**
@@ -266,8 +272,8 @@ public class MainGUI extends javax.swing.JFrame {
                     oos.writeObject(webBlock);
                     oos.writeObject(whitelist);
                     oos.writeObject(blacklist);
-                    oos.writeObject(blockList1.getActualBlockedApps());
-                    oos.writeObject(blockList1.getActualBlockedSites());
+                    oos.writeObject(blockedApps);
+                    oos.writeObject(blockedSites);
                     fos.close();
                     oos.close();
                 } catch (IOException ex) {
