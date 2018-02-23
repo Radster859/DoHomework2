@@ -34,8 +34,6 @@ public class MainGUI extends javax.swing.JFrame {
     private static BlockWebsite webBlock;
     private static ArrayList<String> blockedApps;
     private static ArrayList<String> blockedSites;
-    private static ArrayList<String> whitelist;
-    private static ArrayList<String> blacklist;
 
     /**
      * Creates new form TestBlockOverride
@@ -48,10 +46,6 @@ public class MainGUI extends javax.swing.JFrame {
             //flag + "\n" + color + "\n" + appBlock + "\n" + webBlock + "\n" + whitelist + "\n" + blacklist);
             flag = "" + ois.readObject();
             color = "" + ois.readObject();
-            appBlock = (regBlocker) ois.readObject();
-            webBlock = (BlockWebsite) ois.readObject();
-            whitelist = (ArrayList) ois.readObject();
-            blacklist = (ArrayList) ois.readObject();
             blockedApps = (ArrayList) ois.readObject();
             blockedSites = (ArrayList) ois.readObject();
             blockList1.setActualBlockedApps(blockedApps);
@@ -248,7 +242,9 @@ public class MainGUI extends javax.swing.JFrame {
         override = false;
         System.out.println(override);
         System.out.println(blockedSites);
+        System.out.println(blockedApps);
         webBlock.blockURLs(blockedSites);
+        appBlock.On();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -294,10 +290,6 @@ public class MainGUI extends javax.swing.JFrame {
                     ObjectOutputStream oos = new ObjectOutputStream(fos);
                     oos.writeObject(flag);
                     oos.writeObject(color);
-                    oos.writeObject(appBlock);
-                    oos.writeObject(webBlock);
-                    oos.writeObject(whitelist);
-                    oos.writeObject(blacklist);
                     oos.writeObject(blockedApps);
                     oos.writeObject(blockedSites);
                     fos.close();
