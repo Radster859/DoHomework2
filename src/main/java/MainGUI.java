@@ -28,8 +28,8 @@ public class MainGUI extends javax.swing.JFrame {
 
     private static String flag;
     private static String color;
-    private static boolean override = false;
-    //private static CalendarFetcher calendar;
+    private static boolean override = true;
+    private static CalendarFetcher calendar;
     private static regBlocker appBlock;
     private static BlockWebsite webBlock;
     private static ArrayList<String> blockedApps;
@@ -60,6 +60,7 @@ public class MainGUI extends javax.swing.JFrame {
             fis.close();
             ois.close();
             logoPanel1.setColor(color);
+            calendar = new CalendarFetcher();
         } catch (IOException ex) {
             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException e) {
@@ -85,6 +86,7 @@ public class MainGUI extends javax.swing.JFrame {
         button_Disable = new javax.swing.JButton();
         label_CurrentStatus = new javax.swing.JLabel();
         logoPanel1 = new LogoPanel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuItem_Blocklists = new javax.swing.JMenuItem();
@@ -128,6 +130,13 @@ public class MainGUI extends javax.swing.JFrame {
             .addGap(0, 175, Short.MAX_VALUE)
         );
 
+        jButton1.setText("Start");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         menuItem_Blocklists.setText("Blocklists");
@@ -167,7 +176,8 @@ public class MainGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(logoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_CurrentStatus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
@@ -178,12 +188,17 @@ public class MainGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(logoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_Disable)
                     .addComponent(label_CurrentStatus))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,6 +239,15 @@ public class MainGUI extends javax.swing.JFrame {
         blockedApps = blockList1.getActualBlockedApps();
         blockedSites = blockList1.getActualBlockedSites();
     }//GEN-LAST:event_menuItem_BlocklistsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        for (String s : blockedApps) {
+                        appBlock.addProgram(s);
+                    }
+        override = false;
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,10 +307,9 @@ public class MainGUI extends javax.swing.JFrame {
         });
         try {
             while (1 == 1) {
-                if (!(override/* || calendar.isWork()*/)) {
-
-                    webBlock.blockAllBut(whitelist);
-                    webBlock.blockURLs(blacklist);
+                if (!(override && calendar.isWork())) {
+                    appBlock.On();
+                    webBlock.blockURLs(blockedSites);
                 } else {
                     appBlock.Off();
                     webBlock.unBlockAll();
@@ -303,6 +326,7 @@ public class MainGUI extends javax.swing.JFrame {
     private BlockList blockList1;
     private BlockOverride blockOverride1;
     private javax.swing.JButton button_Disable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel label_CurrentStatus;
