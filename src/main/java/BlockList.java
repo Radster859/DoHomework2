@@ -320,8 +320,8 @@ public class BlockList extends javax.swing.JPanel {
     }
     
     public void discardChanges() {
-        blockedApps = (ArrayList<String>) actualBlockedApps.clone();
-        blockedSites = (ArrayList<String>) actualBlockedSites.clone();
+        //blockedApps = (ArrayList<String>) actualBlockedApps.clone();
+        //blockedSites = (ArrayList<String>) actualBlockedSites.clone();
         updateLists();
     }
 

@@ -29,7 +29,7 @@ public class MainGUI extends javax.swing.JFrame {
     private static String flag;
     private static String color;
     private static boolean override = true;
-    private static CalendarFetcher calendar;
+    //private static CalendarFetcher calendar;
     private static regBlocker appBlock;
     private static BlockWebsite webBlock;
     private static ArrayList<String> blockedApps;
@@ -60,7 +60,9 @@ public class MainGUI extends javax.swing.JFrame {
             fis.close();
             ois.close();
             logoPanel1.setColor(color);
-            calendar = new CalendarFetcher();
+            //calendar = new CalendarFetcher();
+            appBlock = new regBlocker();
+            webBlock = new BlockWebsite();
         } catch (IOException ex) {
             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException e) {
@@ -242,11 +244,11 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        for (String s : blockedApps) {
-                        appBlock.addProgram(s);
-                    }
+        appBlock.addList(blockedApps);
         override = false;
-        
+        System.out.println(override);
+        System.out.println(blockedSites);
+        webBlock.blockURLs(blockedSites);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -305,19 +307,19 @@ public class MainGUI extends javax.swing.JFrame {
                 }
             }
         });
-        try {
+        /*try {
             while (1 == 1) {
-                if (!(override && calendar.isWork())) {
-                    appBlock.On();
-                    webBlock.blockURLs(blockedSites);
+                if (!override) {
+                    //appBlock.On();
+                    //webBlock.blockURLs(blockedSites);
                 } else {
-                    appBlock.Off();
-                    webBlock.unBlockAll();
+                    //appBlock.Off();
+                    //webBlock.unBlockAll();
                 }
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
